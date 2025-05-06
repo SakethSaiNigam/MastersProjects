@@ -1,0 +1,184 @@
+---
+title: "Assignment 2 - Data Programming with R"
+author: "K.Saketh Sai Nigam 22201204"
+date: "2022-11-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**1. Load in the data. Convert each column to an ordered factor with appropriate labels [Hint: look at the arguments of the function factor, in particular levels and labels]. Display the structure of the dataset. **
+
+*Loading the packages required to the question.....!*
+
+```{r echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+```
+
+*Loading the 1995 dataset and printing the 1st six rows of the data........!*
+```{r echo=FALSE}
+my_data <- read.delim("/Users/saketh/Desktop/s50_1995.txt",sep=" ")
+head(my_data)
+```
+
+*-----(Converting each column to an ordered factor with appropriate labels)-----*
+```{r echo=FALSE}
+my_data$alcohol =  factor(my_data$alcohol,labels = c("not","once or twice a year","once a month","once a week","more than once a week"),levels=c(1,2,3,4,5),ordered = TRUE)
+
+my_data$drugs =  factor(my_data$drugs,
+                  labels = c("not","tried once","occasional","regular"),levels = c(1,2,3,4),ordered = TRUE)
+
+my_data$smoke =  factor(my_data$smoke,labels = c("not","occasional","regular"),levels=c(1,2,3),ordered=TRUE)
+
+my_data$sport =  factor(my_data$sport,
+                    labels = c("not regular","regular"),levels = c(1,2),ordered = TRUE)
+```
+
+*The Structure of the dataset.........!*
+```{r echo=FALSE}
+#Structure of the data
+str(my_data)
+```
+
+***------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***
+
+**2. Using base R, create two suitable graphs, with labels, colours etc., one illustrating the variable smoke and the other illustrating the variable sport. Put the two plots next to each other on the same page. Comment on the resulting plots?**
+
+*Plotting the 'SMOKE' n 'SPORT' data in the dataset.....!*
+```{r echo=FALSE}
+my_data_smoke = ggplot(data=my_data,aes(x=smoke))+geom_bar(stat="count",color="green", fill="orange")+theme_minimal()
+
+my_data_sport = ggplot(data=my_data,aes(x=sport))+geom_bar(stat="count",color="green", fill="orange")+theme_minimal()
+
+grid.arrange(my_data_smoke,my_data_sport,ncol=2)
+```
+
+***DESCRIPTION OF PLOTS OF SMOKING STATUS AND SPORTS PARTICIPATION:***
+
+*I'll now go into detail about the dataset's bar plot of the smoke column. It typically is classified into one of three categories: not smoking, occasional smoking, or regular smoking.Out of 50 children, 38 will not smoke, 5 will only smoke occasionally, and 7 will smoke frequently. This indicates that 76% of students will not smoke, 10% will smoke occasionally, and 14% will smoke frequently. Therefore, based on a comparison of the three categories, we may conclude that the majority of students will not smoke.*
+
+*I'll now go into more depth about the sports column's bar plot from the dataset. It is usually divided into two categories: not regularly practiced sports and regularly practiced sports.Thirty-seven of the fifty kids will routinely practice sports, compared to thirteen who won't. This shows that 74% of students will participate in sports, whereas the remaining 26% won't do so frequently. We may therefore infer from a comparison of the two categories that most kids will practice sports activities.*
+
+***------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***
+
+**3. Produce some code to answer the following questions:**
+
+*1. What is the proportion of pupils who smoke at least occasionally?* 
+
+```{r echo=FALSE}
+sum(my_data$smoke%in%c("occasional","regular"))/length(my_data$smoke)
+```
+
+*Out of 50 children,Approximately 24% of students have smoked at least occasionally*
+
+*2. What is the proportion of pupils who regularly practiced sport and smoke at least occasionally?*
+
+```{r echo=FALSE}
+my_data_edited = filter(my_data,my_data$smoke%in%c("occasional","regular") & my_data$sport%in%c("regular"))
+
+nrow(my_data_edited)/nrow(my_data)
+```
+
+*Out of 50 children,Approximately 18% of students have practiced sports and smoked at least occasionally*
+
+***------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***
+
+**4. We would like to be able to summarise such data sets as new data arrive. For this reason, we want to turn the object containing the data into an S3 class called s50survey and write a summary method that will show the proportion of students for every level of each variable. Test your function on the s50_1995.txt data. **
+
+*Summary of the 1995 Dataset*
+
+```{r echo=FALSE}
+class(my_data) = "s50survey"
+
+summary.s50survey = function(s)
+{
+  cat("THE STUDENT SUMMARY THAT SHOWS THE PERCENTAGE OF STUDENTS FOR  EACH LEVEL OF EACH VARIABLE: \n")
+  cat("********************************************************************************************\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("1. ALCOHOL: ALCOHOL CONSUMPTION\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("NOT:- ", sum(s$alcohol =="not")/length(s$alcohol),"\n")
+  cat("ONCE OR TWICE A YEAR:- ",sum(s$alcohol=="once or twice a year")/length(s$alcohol),"\n")
+  cat("ONCE A MONTH:- ",sum(s$alcohol=="once a month")/length(s$alcohol),"\n")
+  cat("ONCE A WEEK:- ",sum(s$alcohol=="once a week")/length(s$alcohol),"\n")
+  cat("MORE THAN ONCE A WEEK:- ",sum(s$alcohol=="more than once a week")/length(s$alcohol),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("2. DRUGS: CANNABIS\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("NOT:- ", sum(s$drugs =="not")/length(s$drugs),"\n")
+  cat("TRIED ONCE:- " ,sum(s$drugs =="tried once")/length(s$drugs),"\n")
+  cat("OCCASIONAL:- ", sum(s$drugs  =="occasional")/length(s$drugs),"\n")
+  cat("REGULAR:- " ,sum(s$drugs =="regular")/length(s$drugs),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("3. SMOKE: SMOKING STATUS\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("NOT:- ", sum(s$smoke =="not")/length(s$smoke),"\n")
+  cat("OCCASIONAL:- ", sum(s$smoke =="occasional")/length(s$smoke),"\n")
+  cat("REGULAR:- " ,sum(s$smoke =="regular")/length(s$smoke),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("4. SPORT: SPORT PARTICIPATION\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("NOT REGULAR:- ", sum(s$sport =="not regular")/length(s$sport),"\n")
+  cat("REGULAR:- ", sum(s$sport =="regular")/length(s$sport),"\n")
+}
+summary(my_data)
+```
+
+***------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***
+
+**5. What is the proportion of pupils who did not use cannabis?**
+
+```{r echo=FALSE}
+sum(my_data$drugs =="not")/length(my_data$drugs)
+```
+
+*Out of 50 children,Approximately 72% of students have not used cannabis drugs*
+
+***------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***
+
+**6. Follow up data on the same students has been collected also in 1997. Read in the file s50_1997.txt, convert each column to an ordered factor, and assign the class s50survey to this dataset as well. Test the summary S3 method on this new dataset.**
+
+*Loading the 1997 dataset and printing the 1st six rows of the data........!*
+```{r echo=FALSE}
+#Loading the data
+my_data1 <- read.delim("/Users/saketh/Desktop/s50_1997.txt",sep=" ")
+head(my_data1)
+```
+
+*-----(Converting each column to an ordered factor with appropriate labels)-----*
+```{r echo=FALSE}
+my_data1$alcohol =  factor(my_data1$alcohol,labels = c("not","once or twice a year","once a month","once a week","more than once a week"),levels=c(1,2,3,4,5),ordered = TRUE)
+
+my_data1$drugs =  factor(my_data1$drugs,
+                  labels = c("not","tried once","occasional","regular"),levels = c(1,2,3,4),ordered = TRUE)
+
+my_data1$smoke =  factor(my_data1$smoke,labels = c("not","occasional","regular"),levels=c(1,2,3),ordered=TRUE)
+
+my_data1$sport =  factor(my_data1$sport,
+                    labels = c("not regular","regular"),levels = c(1,2),ordered = TRUE)
+```
+
+
+*Summary of the 1997 Dataset*
+
+```{r echo=FALSE}
+class(my_data1) = "s50survey"
+summary(my_data1)
+```
+
+***------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***
+
+**7. Did the proportion of students practising sport regularly increased or decreased with respect to the 1995 data?**
+
+```{r echo=FALSE}
+sum(my_data$sport =="regular")/length(my_data$sport)
+sum(my_data1$sport =="regular")/length(my_data1$sport)
+```
+
+*Out of 50 adolescents, 38% of pupils participated in sport in 1997, compared to 74% of children who did so in 1995. Thus, we see that from 1995 to 1997, the percentage decreased by up to 36%.*
+
+

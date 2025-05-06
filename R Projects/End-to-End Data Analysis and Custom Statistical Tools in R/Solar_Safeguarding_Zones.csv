@@ -1,0 +1,45 @@
+﻿Name,IAIP_Name,IAIP_Filename,X_itm,Y_itm,Buffer_km,Buffer_m,OBJECTID
+Abbeyshrule,EIAB - ABBEYSHRULE,Abbeyshrule_EI_AD_2_EIAB,623650,760229,3,3000,1
+Athboy,EIMH - ATHBOY,Athboy_EI_AD_2_EIMH,674158,765916,3,3000,2
+Bantry,EIBN - BANTRY,Bantry_EI_AD_2_EIBN,497168,548248,3,3000,3
+Birr,EIBR - BIRR,Birr_EI_AD_2_EIBR,606795,702251,3,3000,4
+Casement,EIME - CASEMENT,Casement_EI_AD_2_EIME,702959,729198,5,5000,5
+Clonbullogue,EICL - CLONBULLOGUE,Clonbullogue_EI_AD_2_EICL,658506,722509,3,3000,6
+Connemara,EICA - CONNEMARA,Connemara_EI_AD_2_EICA,501967,721024,3,3000,7
+Coonagh,EICN - COONAGH,Coonagh_EI_AD_2_EICN,553873,657464,3,3000,8
+Cork,EICK - CORK/International,Cork_EI_AD_2_EICK,566159,565577,5,5000,9
+Donegal,EIDL - DONEGAL,Donegal_EI_AD_2_EIDL,578199,921904,5,5000,10
+Dublin,EIDW - DUBLIN/International,Dublin_EI_AD_2_EIDW,714988,742647,5,5000,11
+Inisheer,EIIR - INISHEER,Inisheer_EI_AD_2_EIIR,498739,702602,3,3000,12
+Inishmaan,EIMN - INISHMAAN,Inishmaan_EI_AD_2_EIMN,494974,705868,3,3000,13
+Inishmore,EIIM - INISHMORE,Inishmore_EI_AD_2_EIIM,489317,707541,3,3000,14
+Ireland West,EIKN - IRELAND WEST,IrelandWest_EI_AD_2_EIKN,546214,795966,5,5000,15
+Kerry,EIKY - KERRY,Kerry_EI_AD_2_EIKY,495786,604320,5,5000,16
+Kilkenny,EIKK - KILKENNY,Kilkenny_EI_AD_2_EIKK,647629,655748,3,3000,17
+Newcastle,EINC - NEWCASTLE,Newcastle_EI_AD_2_EINC,731579,704265,3,3000,18
+Rathcool,EIRT - RATHCOOL,Rathcool_EI_AD_2_EIRT,532639,595307,3,3000,19
+Shannon,EINN - SHANNON/International,Shannon_EI_AD_2_EINN,537502,661603,5,5000,20
+Sligo,EISG - SLIGO,Sligo_EI_AD_2_EISG,560981,836997,5,5000,21
+Waterford,EIWF - WATERFORD,Waterford_EI_AD_2_EIWF,662433,604329,5,5000,22
+Weston,EIWT - WESTON,Weston_EI_AD_2_EIWT,700640,734621,3,3000,23
+Bishopstown GAA Club,n/a,n/a,563956,570367,3,3000,24
+Royal Hospital Kilmainham,n/a,n/a,712930,733867,3,3000,25
+Phoenix Park Army Sports Ground,n/a,n/a,712585,734662,3,3000,26
+Beaumont Secondary School,n/a,n/a,717741,738987,3,3000,27
+Waterford Airport,n/a,n/a,662506,604466,3,3000,28
+Wexford Racecourse,n/a,n/a,702770,622047,3,3000,29
+"Lourdes Stadium, Drogheda",n/a,n/a,708811,776243,3,3000,30
+Letterkenny University Hospital,n/a,n/a,616972,912721,3,3000,31
+Mayo University Hospital,n/a,n/a,514327,789714,3,3000,32
+Sligo University Hospital,n/a,n/a,569659,836365,3,3000,33
+University Hospital Galway,n/a,n/a,528694,725675,3,3000,34
+University Hospital Limerick,n/a,n/a,555945,653706,3,3000,35
+Cork University Hospital (planned),n/a,n/a,564921,570283,3,3000,36
+University Hospital Kerry,n/a,n/a,484912,613896,3,3000,37
+Tallaght University Hospital,n/a,n/a,708223,727799,3,3000,38
+"Custume Barracks, Athlone ",n/a,n/a,603470,741562,3,3000,39
+DFTC/Curragh Camp,n/a,n/a,678286,711385,3,3000,40
+Finner Camp,n/a,n/a,584613,860538,3,3000,41
+The Naval Base Haulbowline ,n/a,n/a,578867,565383,3,3000,42
+Gormanston Camp ,n/a,n/a,717063,767622,3,3000,43
+Cathal Brugha Barracks ,n/a,n/a,715130,732167,3,3000,44

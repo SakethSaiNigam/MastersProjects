@@ -1,0 +1,335 @@
+---
+title: "Final Project"
+author: "K.Saketh Sai Nigam 22201204"
+date: "2022-12-16"
+output: html_document
+---
+
+**Importing All the Libraries Required in this Project**
+
+```{r}
+#importing the required libraries to perform the project
+library(ggplot2) 
+```
+
+## Part 1: Analysis
+
+**Loading the DataSet**
+
+**--------------------------------------------------------------**
+
+*The SolarSafeguardingZonesData2012 Dataset is: *
+
+```{r}
+# Import the SolarSafeguardingZonesData2012 dataset and look at the SolarSafeguardingZonesData2012 dataset
+SolarSafeguardingZonesData2012 = read.csv("/Users/saketh/Desktop/Solar_Safeguarding_Zones.csv")
+SolarSafeguardingZonesData2012
+```
+
+**Dimensions of the DataSet**
+
+**--------------------------------------------------------------**
+
+```{r}
+#display rows and columns of SolarSafeguardingZonesData2012 dataset
+dim(SolarSafeguardingZonesData2012)
+```
+
+*The SolarSafeguardingZonesData2012 DataSet has 44 rows i.e 44 different Datas and 8 Columns i.e 8 categories of the Solar Safeguarding Zones in 2012. They are Name, IAIP Name,IAIP Filename,X item,Y item, Buffer meter, Buffer Kilometer, ObjectId of each data*
+
+**Structure of the DataSet**
+
+**--------------------------------------------------------------**
+
+```{r}
+#display Structure of SolarSafeguardingZonesData2012 dataset
+str(SolarSafeguardingZonesData2012)
+```
+
+*This provides the dataset's Dimension and Mode. The SolarSafeguardingZonesData2012 DataSet consists of 8 columns, or the categories of the Solar Safeguarding Zones in 2012, and 44 rows, or 44 individual data sets. They are the following for each piece of data: Name, IAIP Name, IAIP Filename, X item, Y item, Buffer meter, Buffer Kilometer, and ObjectId. The common mode for the Name, IAIP Name, and IAIP Filename is "Character," while the remaining measures have the "Integer" mode.*
+
+**Mode of the DataSet**
+
+**--------------------------------------------------------------**
+
+```{r}
+#display Mode of SolarSafeguardingZonesData2012 dataset
+mode(SolarSafeguardingZonesData2012)
+factor(SolarSafeguardingZonesData2012$Buffer_m)
+```
+
+*Despite the fact that the DataFrame appears to be a matrix, R treats data frame measures as lists.*
+
+**Factors of the DataSet**
+
+**--------------------------------------------------------------**
+
+```{r}
+#display Factors of Buffer_m of SolarSafeguardingZonesData2012 dataset
+factor(SolarSafeguardingZonesData2012$Buffer_m)
+```
+
+*Categorical data is stored in 'R' language factors. They are only vectors with some level-specific information added. This shows the Dataset's Buffer m's data as well as its levels.*
+
+```{r}
+#display Factors of Buffer_km of SolarSafeguardingZonesData2012 dataset
+factor(SolarSafeguardingZonesData2012$Buffer_km)
+```
+
+*Categorical data is stored in 'R' language factors. They are only vectors with some level-specific information added. This shows the Dataset's Buffer km's data as well as its levels.*
+
+```{r}
+#display structure of Factors of Buffer_m of SolarSafeguardingZonesData2012 dataset
+str(factor(SolarSafeguardingZonesData2012$Buffer_m))
+```
+
+*This displays the number of levels in the Dataset's Buffer m's data as well as the level each item of information belongs to particular level value.*
+
+```{r}
+#display structure of Factors of Buffer_km of SolarSafeguardingZonesData2012 dataset
+str(factor(SolarSafeguardingZonesData2012$Buffer_km))
+```
+
+*This displays the number of levels in the Dataset's Buffer km's data as well as the level each item of information belongs to particular level value.*
+
+**Numerical Summary of the DataSet**
+
+**--------------------------------------------------------------**
+
+```{r}
+#summarize of ParkData dataset
+summary(SolarSafeguardingZonesData2012)
+```
+
+*The Numerical summaries shows each categories* **Name**, **IAIP_Name**,**IAIP_Filename** *of the dataset taken each has total length of* **44**  *and mode and class of each Category is of*  **Character** 
+
+*The Numerical summaries of categories that are* **X_itm**, **Y_itm**,**Buffer_m**,**Buffer_km** *of the dataset taken shows* **Minimum**,**Maxiimum**,**Mean**,**Median**,**1st,3rd quartile** *values*
+
+*X_itm has MINIMUM VALUE:-  484912, MAXIMUM VALUE:-  731579, MEAN VALUE:-  608619, MEDIAN VALUE:-  594042, 1ST QUARTILE:-  544036, 3RD QUARTILE:-  701172*
+
+*Y_itm has MINIMUM VALUE:-  548248, MAXIMUM VALUE:-  921904, MEAN VALUE:-  707627, MEDIAN VALUE:-  721766, 1ST QUARTILE:-  645791, 3RD QUARTILE:-  747042* 
+
+*Buffer_km has MINIMUM VALUE:-  3, MAXIMUM VALUE:-  5, MEAN VALUE:-  3.409091, MEDIAN VALUE:-  3, 1ST QUARTILE:-  3, 3RD QUARTILE:-  3* 
+
+*Buffer_m has MINIMUM VALUE:-  3000, MAXIMUM VALUE:-  5000, MEAN VALUE:-  3409, MEDIAN VALUE:-  3000, 1ST QUARTILE:-  3000, 3RD QUARTILE:-  3000*
+
+*OBJECTID has MINIMUM VALUE:-  1, MAXIMUM VALUE:-  44, MEAN VALUE:-  22.5, MEDIAN VALUE:-  22.5, 1ST QUARTILE:-  11.75, 3RD QUARTILE:-  33.25* 
+
+**Graphical Summary of DataSet**
+
+**--------------------------------------------------------------**
+
+**1. BAR PLOT of SolarSafeguardingZonesData2012 datase:-**
+
+*The Bar plot is a plot designed the category * **Name** *with respect to the* **X_itm** *values as a categorical variable*
+
+```{r}
+#Bar-Plot of SolarSafeguardingZonesData2012 dataset
+ggplot(SolarSafeguardingZonesData2012, aes(x=X_itm, y=Name, fill=X_itm)) +
+    geom_bar(stat='identity', position='dodge')+
+  ggtitle("Bar Plot of the Names of dataset with respect to X_itm") +
+              xlab("X_itm Values") +
+              ylab("Names")
+```
+
+**2. HISTOGRAM PLOT of SolarSafeguardingZonesData2012 datase:-**
+
+*The Histogram plot is a plot designed the category * **X_itm** *with respect to the * *range of values*
+
+```{r}
+#Histogram-Plot of SolarSafeguardingZonesData2012 dataset
+ggplot(data = SolarSafeguardingZonesData2012) +
+  geom_histogram(mapping = aes(x = X_itm), binwidth = 5000,colour="#000099",fill="#CC0000")+
+  ggtitle("Histogram Graph of the X_item of Dataset") +
+              xlab("X_itm Values") +
+              ylab("Range of Values")
+```
+
+**3. SCATTER PLOT of SolarSafeguardingZonesData2012 datase:-**
+
+*The Scatter plot is a plot designed the category * **Y_itm** *with respect to the * **X_itm** *values. We get linearly increasing graph with respect ro values as we are using Linear Regression* 
+
+```{r}
+#Scatter-Plot of SolarSafeguardingZonesData2012 dataset
+ggplot(SolarSafeguardingZonesData2012, aes(x=X_itm, y=Y_itm)) + 
+  geom_point(color="darkblue")+
+  geom_smooth(method=lm,color="Green")+
+  ggtitle("Scatter Plot of X_itm with respect to Y_itm") +
+              xlab("X_itm") +
+              ylab("Y_itm")
+```
+
+
+**4. BOX PLOT of SolarSafeguardingZonesData2012 datase:-**
+
+*The Box plot is a plot designed the category * **Y_itm** *with respect to the * **Buffer_m** *values*
+
+```{r}
+#Box-Plot of SolarSafeguardingZonesData2012 dataset
+ggplot(SolarSafeguardingZonesData2012, aes(x=Buffer_m, y=Y_itm,color=factor(Buffer_m))) + 
+  geom_boxplot(outlier.color="darkblue")+
+  ggtitle("BoxPlot of the Y_itm with respect to Buffer_m") +
+  xlab("Buffer_m") +
+  ylab("Y_itm")
+```
+
+
+**5. PIE PLOT of SolarSafeguardingZonesData2012 datase:-**
+
+*The Pie plot is a plot designed the category * **X_itm** *with respect to the * **Buffer_km** *values*
+
+```{r}
+#Pie-Plot of SolarSafeguardingZonesData2012 dataset
+ggplot(SolarSafeguardingZonesData2012, aes(x=2, y=X_itm, fill=factor(Buffer_km))) +
+  geom_col()  +
+  coord_polar(theta="y") + xlim(c(0.2, 2.5))+
+  ggtitle("PiePlot of the X_itm with respect to Buffer_km") +
+  xlab("X_itm") +
+  ylab("Buffer_km")
+```
+
+
+**Correlation of SolarSafeguardingZonesData2012 datase:-**
+
+**--------------------------------------------------------------**
+
+```{r}
+round(cor(SolarSafeguardingZonesData2012[c('X_itm', 'Y_itm', 'Buffer_m', 'Buffer_km')]), 2)
+```
+
+*The Correlation values of the numerical dataset SolarSafeguardingZonesData2012 with the measurements X_itm,Y_itm,Buffer_m,Buffer_km,OBJECTID taken in the dataset is printed in the matrix as shown above with 2 decimal rounded.*
+
+**Total no:of missing values in the DataSet**
+
+**--------------------------------------------------------------**
+
+```{r}
+#count total missing values in each column  of ParkData dataset
+sapply(SolarSafeguardingZonesData2012, function(x) sum(is.na(x)))
+```
+
+*As the sum of all missing elements are zero, There are no missing values*
+
+## Part 2: R Package
+
+**The Pakage used in this Project is 'ggplot2'**
+
+**Report on GGPLOT2:-**
+
+*A plotting software called ggplot2 offers helpful functions for generating intricate graphs from data in a data frame. It offers a more programmatic interface for choosing which variables to plot, how to present them, and other visual characteristics. Therefore, if the underlying data change or if we choose to switch from a bar plot to a scatterplot, we just need to make minor adjustments. This enables the creation of plots of publication quality with little adjustment and fine tuning.By adding new components, ggplot graphics are built up layer by layer. This method of layering plots allows for a great deal of versatility and personalization.*
+
+*Because it enables you to alter already-existing ggplot objects, the "Plus" in the ggplot2 package is especially helpful. This makes it simple to construct up plot "templates" and rapidly examine various plot kinds.In order to prevent unintentional downloads as well as further ambiguity, the ggplot() method was included in the ggplot2 package's earlier iteration, called ggplot, which is no longer offered and has been decommissioned from CRAN.*
+
+*The method you link facts to the graphic's elements is through attractiveness. Aesthetics instruct ggplot as to what belongs on the x-axis, what belongs on the y-axis, and what colors belong there. Although diverse geometrical (shapes) may have distinct aesthetics, the most popular elegance are x, y, and color/fill.*
+
+*Add the code +ggtitle("Your Title Here") to your line of fundamental ggplot program to add a title to any graph. Make sure your description is in quote marks at both the beginning and the finish.For both the plot's x and y axes, the variables xlab("—") and ylab("—") indicate labels. Ensure that the beginning and the conclusion of your description are enclosed in quotation marks.*
+
+*Scatterplots are produced using the point geometry. The link between two continuous variables is best shown with a scatterplot. A version like geom jitter(), geom count(), or geom bin2d() is typically more suitable. It can be used to compare one continuous and one categorical variable, or two categorical variables. A bubblechart is a scatterplot where the size of the points is the third variable.*
+
+**There are 2 categories for "color="** 
+
+*1. In scatterplots, geom_point() is used for dots and circles.* 
+
+*2. Line charts employ the geom_line() function.* 
+
+**There are 2 categories for "fill="** 
+
+*1. For column/bar charts, 'fill=' has two categories and is used with the geom col() and geom bar() functions.* 
+
+*2. Area charts use the geom_area() function.* 
+
+*You can split the contour by a categorical data (referred to as a "discrete" variable in ggplot) by using 'color=' or 'fill='*
+
+
+## Part 3: Functions/Programming
+
+```{r}
+class(SolarSafeguardingZonesData2012) = "SSZData2012"
+
+summary.SSZData2012 = function(s)
+{
+  cat("THE SUMMARY OF THE SOLAR SAFEGUARDING ZONES IN 2012 DATASET USING S3 CLASS: \n")
+  cat("********************************************************************************************\n")
+  cat("------------------------------------------------------------------------------------------\n")
+    cat("1. NAME\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("LENGTH:- ", length(s$Name),"\n")
+  cat("CLASS:- ", class(s$Name),"\n")
+  cat("MODE:- ",mode(s$Name),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+   cat("2. IAIP_Name\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("LENGTH:- ", length(s$IAIP_Name),"\n")
+  cat("CLASS:- ", class(s$IAIP_Name),"\n")
+  cat("MODE:- ",mode(s$IAIP_Name),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+     cat("3. IAIP_Filename\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("LENGTH:- ", length(s$IAIP_Filename),"\n")
+  cat("CLASS:- ", class(s$IAIP_Filename),"\n")
+  cat("MODE:- ",mode(s$IAIP_Filename),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("4. X_itm\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("MINIMUM VALUE:- ", min(s$X_itm),"\n")
+  cat("MAXIMUM VALUE:- ",max(s$X_itm),"\n")
+  cat("MEAN VALUE:- ",sum(s$X_itm)/length(s$X_itm),"\n")
+  cat("MEDIAN VALUE:- ",median(s$X_itm),"\n")
+  cat("1ST QUARTILE:- ",quantile(s$X_itm, 0.25),"\n")
+  cat("3RD QUARTILE:- ",quantile(s$X_itm, 0.75),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("5. Y_itm\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("MINIMUM VALUE:- ", min(s$Y_itm),"\n")
+  cat("MAXIMUM VALUE:- ",max(s$Y_itm),"\n")
+  cat("MEAN VALUE:- ",sum(s$Y_itm)/length(s$Y_itm),"\n")
+  cat("MEDIAN VALUE:- ",median(s$Y_itm),"\n")
+  cat("1ST QUARTILE:- ",quantile(s$Y_itm, 0.25),"\n")
+  cat("3RD QUARTILE:- ",quantile(s$Y_itm, 0.75),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("6. Buffer_km\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("MINIMUM VALUE:- ", min(s$Buffer_km),"\n")
+  cat("MAXIMUM VALUE:- ",max(s$Buffer_km),"\n")
+  cat("MEAN VALUE:- ",sum(s$Buffer_km)/length(s$Buffer_km),"\n")
+  cat("MEDIAN VALUE:- ",median(s$Buffer_km),"\n")
+  cat("1ST QUARTILE:- ",quantile(s$Buffer_km, 0.25),"\n")
+  cat("3RD QUARTILE:- ",quantile(s$Buffer_km, 0.75),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("7. Buffer_m\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("MINIMUM VALUE:- ", min(s$Buffer_m),"\n")
+  cat("MAXIMUM VALUE:- ",max(s$Buffer_m),"\n")
+  cat("MEAN VALUE:- ",sum(s$Buffer_m)/length(s$Buffer_m),"\n")
+  cat("MEDIAN VALUE:- ",median(s$Buffer_m),"\n")
+  cat("1ST QUARTILE:- ",quantile(s$Buffer_m, 0.25),"\n")
+  cat("3RD QUARTILE:- ",quantile(s$Buffer_m, 0.75),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+    cat("8. OBJECTID\n")
+  cat("------------------------------------------------------------------------------------------\n")
+  cat("MINIMUM VALUE:- ", min(s$OBJECTID),"\n")
+  cat("MAXIMUM VALUE:- ",max(s$OBJECTID),"\n")
+  cat("MEAN VALUE:- ",sum(s$OBJECTID)/length(s$OBJECTID),"\n")
+  cat("MEDIAN VALUE:- ",median(s$OBJECTID),"\n")
+  cat("1ST QUARTILE:- ",quantile(s$OBJECTID, 0.25),"\n")
+  cat("3RD QUARTILE:- ",quantile(s$OBJECTID, 0.75),"\n")
+  cat("------------------------------------------------------------------------------------------\n")
+}
+summary(SolarSafeguardingZonesData2012)
+```
+
+**The Summary of the SolarSafeguardingZonesData2012 Using "S3-Class"**
+
+*The Summary using S3 Class shows each categories* **Name**, **IAIP_Name**,**IAIP_Filename** *of the dataset taken each has total length of* **44**  *and mode and class of each Category is of*  **Character** 
+
+*The Summary using S3 Class show the categories that are* **X_itm**, **Y_itm**,**Buffer_m**,**Buffer_km** *of the dataset taken shows* **Minimum**,**Maxiimum**,**Mean**,**Median**,**1st,3rd quartile** *values*
+
+*X_itm has MINIMUM VALUE:-  484912, MAXIMUM VALUE:-  731579, MEAN VALUE:-  608619, MEDIAN VALUE:-  594041.5, 1ST QUARTILE:-  544036, 3RD QUARTILE:-  701172.5*
+
+*Y_itm has MINIMUM VALUE:-  548248, MAXIMUM VALUE:-  921904, MEAN VALUE:-  707627, MEDIAN VALUE:-  721766.5, 1ST QUARTILE:-  645791.2, 3RD QUARTILE:-  747042.5* 
+
+*Buffer_km has MINIMUM VALUE:-  3, MAXIMUM VALUE:-  5, MEAN VALUE:-  3.409091, MEDIAN VALUE:-  3, 1ST QUARTILE:-  3, 3RD QUARTILE:-  3* 
+
+*Buffer_m has MINIMUM VALUE:-  3000, MAXIMUM VALUE:-  5000, MEAN VALUE:-  3409.091, MEDIAN VALUE:-  3000, 1ST QUARTILE:-  3000, 3RD QUARTILE:-  3000*
+
+*OBJECTID has MINIMUM VALUE:-  1, MAXIMUM VALUE:-  44, MEAN VALUE:-  22.5, MEDIAN VALUE:-  22.5, 1ST QUARTILE:-  11.75, 3RD QUARTILE:-  33.25* 

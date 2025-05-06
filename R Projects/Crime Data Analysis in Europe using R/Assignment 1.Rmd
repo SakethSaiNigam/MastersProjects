@@ -1,0 +1,122 @@
+---
+title: "Assignment 1"
+author: "K.Saketh Sai Nigam 22201204"
+date: "2022-09-27"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Task 1: Manipulation
+
+```{r cars}
+#1. Load the dataset EurostatCrime2019.csv. Notice that the first column of the csv filecontains the names of the countries that must be read as row names [Hint: Load in the file using the function read.csv].
+
+#Loading the dataset
+D <- read.csv("/Users/saketh/Desktop/R /Ass1/EurostatCrime2019.csv",row.names = 'X') 
+
+#2.What is the size (number of rows and columns) and the structure of this dataset? 
+
+#No:of Rows of Dataset 'D'
+print(nrow(D)) 
+
+#No:of Columns of Dataset 'D'
+print(ncol(D)) 
+
+#Structure of Dataset 'D'
+print(str(D)) 
+
+#3.(i) For most countries sexual violence figures are the sum of rape and sexual assault. Remove the columns Rape and Sexual.assault.
+
+#Removing the columns Rape and Sexual.assault.
+D <- subset(D,select = -c(Rape,Sexual.assault))
+head(D)
+
+#3.(ii) For some countries Theft includes also burglary, and theft of motorised land vehicle, in others they are recorded separately. In order to compare the different countries, remove the columns involving theft and burglary: 1.Theft,2. Theft.of.a.motorized.land.vehicle,3. Burglary,4. Burglary.of.private.residential.premises.
+
+#Removing the columns Theft,Theft.of.a.motorized.land.vehicle,Burglary,Burglary.of.private.residential.premises.
+D <- subset(D,select = -c(Theft,Theft.of.a.motorized.land.vehicle,Burglary,Burglary.of.private.residential.premises))
+head(D)
+
+#3.(iii) Add a column containing the overall record of offences for each country (per hundred thousand inhabitants)?
+
+#Creating the column called OverAllRecords
+D$OverAllRecords = D$Intentional.homicide+D$Attempted.intentional.homicide+D$Assault+D$Kidnapping+D$Sexual.violence+D$Robbery+D$Unlawful.acts.involving.controlled.drugs.or.precursors
+head(D)
+
+#4. Work with the dataset you just created, and list the countries that contain any missing data
+
+#Printing the countries which have the missing data
+CountriesOfMissingData <- names(which(rowSums(is.na(D))>0)) 
+print(CountriesOfMissingData)
+
+#5. Remove the countries with missing data from the dataframe.
+
+#Removing the countries which have misssing data from the Dataset 'D'
+D <- D[!(row.names(D) %in% CountriesOfMissingData),]
+head(D)
+
+#6. How many observations and variables are in this new dataframe?
+
+#No:of Rows of new Dataset 'D'
+print(nrow(D)) 
+
+#No:of Columns of new Dataset 'D'
+print(ncol(D)) 
+
+#Structure of new Dataset 'D'
+print(str(D)) 
+
+```
+
+## Task 2: Analysis
+
+```{r cars2}
+
+#1. According to these data what were the 3 most common crimes in Ireland in 2019?
+D1<-D[(row.names(D) %in% "Ireland"),]
+D1<-t(D1)
+D2<-data.frame(D1[rev(order(as.numeric(as.character(D1)))), ,drop=FALSE])
+D3<-D2[-c(1:2),,drop = FALSE]
+
+#The Three most common crimes in Ireland 
+row.names(D3[c(1:3),,drop = FALSE])
+
+#2. What proportion of the overall crimes was due to Assault in Ireland in 2019?
+
+D["Ireland","Assault"]/D["Ireland","OverAllRecords"]
+
+#3. Which country had the highest record of kidnapping in 2019 (per hundred thousand inhabitants)?
+
+HigestRecordOfKidnapping <- D[order(-D$Kidnapping),,drop = FALSE] 
+row.names(HigestRecordOfKidnapping)[1]
+
+#4. Which country had the lowest overall record of offences in 2019 (per hundred thousand inhabitants)?
+  
+LowestOfOverAllRecords<-D[order(-D$OverAllRecords), , drop = FALSE]
+
+row.names(LowestOfOverAllRecords)[length(row.names(LowestOfOverAllRecords))]
+  
+#5. Create a plot displaying the relationship between robbery and unlawful acts involving controlled drugs or precursors. Make the plot look “nice” i.e. change axis labels etc.?
+
+plot(D$Robbery,D$Unlawful.acts.involving.controlled.drugs.or.precursors,main="Robbery vs. Unlawful acts involving controlled drugs or precursors",xlab="Robbery", ylab="Unlawful acts involving controlled drugs or precursors",col="navy",pch=20)
+axis(side = 1, at = seq(0, 140, by = 5), labels = FALSE)
+```
+
+## Task 3: Creativity
+
+```{r cars3,echo=FALSE,fig.height = 10, fig.width = 7, fig.align = "center"}
+barplot(D$Intentional.homicide,xlim=c(0,10),ylim = c(0, 3),col=rainbow(3),main="Bar-Plot  of Intentional homicide from the DataSet 'D'")
+
+hist(D$Robbery,main="Histogram of Robbery from the DataSet 'D' ",col='green')
+
+boxplot(D$Attempted.intentional.homicide,col="red")
+
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

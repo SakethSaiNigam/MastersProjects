@@ -27,7 +27,7 @@ This repository contains a collection of academic and applied projects completed
 
 ## 📌 Notes
 
-- All projects were completed as part of academic coursework or thesis work.
+- All projects were completed as part of academic coursework.
 - Files were added recently for portfolio purposes.
 - Feel free to explore or reach out for collaboration or discussion.
 
